@@ -1,0 +1,55 @@
+# Binary files
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.o
+*.a
+*.coverprofile
+
+# Go build artifacts
+/bin/
+/dist/
+/cache/
+/testdata/tmp/
+/__debug_bin
+
+
+# Configuration files
+*.local.toml
+*.dev.toml
+config.local.*
+config.dev.*
+local.toml
+dev.toml
+.config.local.*
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# Vendor dependencies
+/vendor/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# VS Code workspace files
+*.code-workspace
+
+# Environment variable file
+.env
+*.env
+
+# .DS_Store MacOS system files
+**/.DS_Store
+
+#Local-configs folder
+local-config/
