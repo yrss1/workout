@@ -1,0 +1,121 @@
+erDiagram
+    USERS {
+        UUID id PK
+        VARCHAR email
+        VARCHAR password_hash
+        VARCHAR username
+        BOOLEAN is_active
+        VARCHAR role
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    PROFILES {
+        UUID id PK
+        UUID user_id FK
+        NUMERIC height_cm
+        NUMERIC weight_kg
+        TEXT goal
+        VARCHAR gender
+        DATE birth_date
+        VARCHAR activity_level
+        VARCHAR experience_level
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    EXERCISES {
+        UUID id PK
+        VARCHAR name
+        VARCHAR muscle_group
+        TEXT description
+        BOOLEAN is_custom
+        UUID created_by_user_id FK
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    WORKOUTS {
+        UUID id PK
+        UUID user_id FK
+        DATE date
+        VARCHAR name
+        VARCHAR type
+        TEXT notes
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    WORKOUT_EXERCISES {
+        UUID id PK
+        UUID workout_id FK
+        UUID exercise_id FK
+        INT order_index
+        TEXT notes
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    SETS {
+        UUID id PK
+        UUID workout_exercise_id FK
+        INT set_number
+        NUMERIC weight_kg
+        INT reps
+        INT rest_seconds
+        NUMERIC rpe
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    PROGRESS_LOGS {
+        UUID id PK
+        UUID user_id FK
+        UUID exercise_id FK
+        DATE date
+        NUMERIC max_weight_kg
+        NUMERIC total_volume_kg
+        NUMERIC avg_reps
+        NUMERIC avg_rpe
+        TEXT notes
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    USER_FRIENDS {
+        UUID user_id FK
+        UUID friend_id FK
+        VARCHAR status
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    ACHIEVEMENTS {
+        UUID id PK
+        VARCHAR code
+        VARCHAR title
+        TEXT description
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    USER_ACHIEVEMENTS {
+        UUID user_id FK
+        UUID achievement_id FK
+        TIMESTAMPTZ achieved_at
+    }
+
+    USERS ||--o{ PROFILES : "1:1"
+    USERS ||--o{ WORKOUTS : "1:N"
+    USERS ||--o{ PROGRESS_LOGS : "1:N"
+    USERS ||--o{ USER_FRIENDS : "N:M"
+    USERS ||--o{ USER_ACHIEVEMENTS : "N:M"
+    USERS ||--o{ EXERCISES : "1:N (custom exercises)"
+
+    PROFILES ||--|| USERS : "belongs to"
+
+    WORKOUTS ||--o{ WORKOUT_EXERCISES : "1:N"
+    WORKOUT_EXERCISES ||--o{ SETS : "1:N"
+    EXERCISES ||--o{ WORKOUT_EXERCISES : "1:N"
+    EXERCISES ||--o{ PROGRESS_LOGS : "1:N"
+    ACHIEVEMENTS ||--o{ USER_ACHIEVEMENTS : "1:N"

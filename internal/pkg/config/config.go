@@ -1,7 +1,10 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/ilyakaznacheev/cleanenv"
+	"github.com/joho/godotenv"
 	httpConfig "github.com/yrss1/workout/internal/pkg/http/config"
 )
 
@@ -18,9 +21,10 @@ func ParseConfig(configPath string) (*Config, error) {
 	if configPath != "" {
 		err = cleanenv.ReadConfig(configPath, config)
 	} else {
+		_ = godotenv.Load()
 		err = cleanenv.ReadEnv(config)
 	}
-
+	fmt.Println(config)
 	if err != nil {
 		return nil, err
 	}

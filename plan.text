@@ -1,0 +1,7 @@
+    /auth         # users + login, JWT                  
+    /profile      # profiles                            
+    /exercise     # exercises                           
+    /workout      # workouts, workout_exercises, sets
+    /progress     # progress_logs
+    /social       # user_friends
+    /achievement  # achievements, user_achievements

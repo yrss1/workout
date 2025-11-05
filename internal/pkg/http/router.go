@@ -41,7 +41,8 @@ func NewRouter(
 	})
 
 	var router = &Router{
-		logger: *logger,
+		rootRouter: rootRouter,
+		logger:     *logger,
 	}
 	return router
 }
